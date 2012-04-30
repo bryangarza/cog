@@ -5,17 +5,8 @@ echo 'usage: cog <package>'
 }
 
 vars() {
-    cogdir="$HOME//builds/cog_builds"
+    cogdir="$HOME/builds/cog_builds"
     currentdir="$PWD"
-}
-
-destroy() {
-    rm --force --recursive "$location"
-}
-        
-die() {
-    echo "ERROR: $@" >&2
-    exit 1
 }
 
 cogInstall() {
