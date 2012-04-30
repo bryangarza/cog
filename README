@@ -1,0 +1,6 @@
+                                      cog
+
+cog is a dead-simple script that installs AUR packages
+
+depends:
+    - cower
