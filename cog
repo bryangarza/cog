@@ -29,7 +29,7 @@ cogInstall() {
     cd "$cogdir"
     cower --download "$package"
     cd "$cogdir/$package"
-    makepkg -scfi
+    makepkg -scfi --noconfirm 
 }
 
 msg() {
@@ -64,25 +64,38 @@ prompt() {
 }
 
 delegateInstall() {
-    local package_list="$@"
+    local package_list=()
 
-    if [[ $package_list == '' ]]; then
+    for package in $@
+    do
+        package_list[${#package_list[*]}]="$package"
+    done
+
+    local package_list_len=${#package_list[@]}
+
+    if ((package_list_len == 0 )); then
         msg 'there is nothing to do'
         exit 0
     fi
 
-    for package in "$package_list"
-    do
-        if ! cogInstall "$package"; then
-            msg "error occurred installing $package"
-            if prompt "remove $cogdir/$package before exiting?"
-            then
-                rm -rf "$cogdir/$package"
-            fi
+    msg "Targets ($package_list_len): ${package_list[*]}"
 
-            die ''
-        fi
-    done
+    if prompt 'Proceed with installation?'; then
+
+        for package in "${package_list[@]}"
+        do
+            if ! cogInstall "$package"; then
+                msg "error occurred installing $package"
+                if prompt "remove $cogdir/$package before exiting?"
+                then
+                    rm -rf "$cogdir/$package"
+                fi
+
+                die ''
+            fi
+        done
+
+    fi
 }
 
 vars
