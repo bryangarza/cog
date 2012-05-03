@@ -37,7 +37,7 @@ msg() {
 }
 
 die() {
-    msg "$@"
+    msg "error: $@"
     exit 1
 }
 
@@ -85,7 +85,7 @@ delegateInstall() {
         for package in "${package_list[@]}"
         do
             if ! cogInstall "$package"; then
-                msg "error occurred installing $package"
+                msg "error: failed to install $package"
                 if prompt "remove $cogdir/$package before exiting?"
                 then
                     rm -rf "$cogdir/$package"
