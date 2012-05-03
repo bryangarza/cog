@@ -66,6 +66,11 @@ prompt() {
 delegateInstall() {
     local package_list="$@"
 
+    if [[ $package_list == '' ]]; then
+        msg 'there is nothing to do'
+        exit 0
+    fi
+
     for package in "$package_list"
     do
         if ! cogInstall "$package"; then
