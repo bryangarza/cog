@@ -25,12 +25,12 @@ cogInstall() {
     makepkg -scfi
 }
 
-message() {
+msg() {
     echo -e "$@"
 }
 
 die() {
-    message "$@"
+    msg "$@"
     exit 1
 }
 
@@ -50,7 +50,7 @@ prompt() {
                 ;;
             [Nn]* ) return 1
                 ;;
-            * ) message 'invalid answer'
+            * ) msg 'invalid answer'
                 ;;
         esac
     done
@@ -62,7 +62,7 @@ delegateInstall() {
     for package in "$package_list"
     do
         if ! cogInstall "$package"; then
-            message "error occurred installing $package"
+            msg "error occurred installing $package"
             if prompt "remove $cogdir/$package before exiting?"
             then
                 rm -rf "$cogdir/$package"
