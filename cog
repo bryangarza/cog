@@ -10,7 +10,14 @@ if [[ $1 == '-h' || $1 == '--help' || $1 == '-?' ]]; then
 fi
 
 vars() {
-    cogdir="$HOME/builds/cog_builds"
+    local confdir="$HOME/.config/cogrc"
+
+    if [[ -s "$confdir" ]]; then
+        . "$confdir"
+    else
+        die "$confdir missing"
+    fi
+
     cwd="$PWD"
 
     setTrap

@@ -1,0 +1,7 @@
+# This is a sample cogrc file #
+#
+# Place this in ~/.config/ and edit to your liking
+#
+
+# The directory where the build files are stored
+cogdir="$HOME/builds/cog_builds"
