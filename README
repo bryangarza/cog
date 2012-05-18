@@ -2,21 +2,16 @@
 
 cog is a dead-simple script that installs AUR packages
 
-intro
+Why?
 -----
 
 Existing AUR helpers try to reinvent the wheel. This is an attempt to create a
-small, readable script that leverages existing tools to install packages. Using
-the excellent cower[1] and makepkg, installation is a breeze.
-
-cog has no options (yet). This is because it is not designed to do
-_everything_. cog was written to install packages only. If you need more than
-that (such as retrieving information on AUR packages) see [1].
+small script that leverages existing tools to install packages.
 
 depends
 -------
 
-cower
+- cower (https://github.com/falconindy/cower)
 
 setup
 -----
@@ -29,7 +24,9 @@ setup
 Usage
 -----
 
-Consult `cog -h`
+usage: cog <package>
 
+  options
+    -f, --force   overwrite existing files when downloading
+                    (passed to cower)
 
-[1] https://github.com/falconindy/cower 

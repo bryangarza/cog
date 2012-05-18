@@ -1,7 +1,14 @@
 #!/bin/bash
 
 usage() {
-    echo 'usage: cog <package>'
+    cat<<EOF
+usage: cog <package>
+
+  options
+    -f, --force   overwrite existing files when downloading
+                    (passed to cower)
+
+EOF
 }
 
 if [[ $1 == '-h' || $1 == '--help' || $1 == '-?' ]]; then
@@ -30,7 +37,7 @@ cogInstall() {
     local package="$@"
 
     cd "$cogdir"
-    cower --download "$coweropts" "$package"
+    cower --download $coweropts "$package"
     cd "$cogdir/$package"
     if prompt 'edit PKGBUILD?'; then
         $EDITOR PKGBUILD
