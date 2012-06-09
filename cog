@@ -11,12 +11,32 @@ usage: cog <package>
 EOF
 }
 
+update() {
+    local up="$(cower -ubq)"
+    local string=''
+
+    for each in $up
+    do
+        string="$string $each"
+    done
+
+    cog "$coweropts" "$string"
+    exit 0
+}
+
 if [[ $1 == '-h' || $1 == '--help' || $1 == '-?' ]]; then
     usage
     exit 0
-elif [[ $1 == '-f' || $1 == '--force' ]]; then
+fi
+
+if [[ $1 == '-f' || $1 == '--force' ]]; then
     coweropts='--force'
-    shift
+fi
+
+shift
+
+if [[ $1 == '-u' || $1 == '--update' ]]; then
+    update
 fi
 
 vars() {
@@ -37,11 +57,15 @@ cogInstall() {
     local package="$@"
 
     cd "$cogdir"
+
     cower --download $coweropts "$package"
+
     cd "$cogdir/$package"
+
     if prompt 'edit PKGBUILD?'; then
         $EDITOR PKGBUILD
     fi
+
     makepkg -scfi --noconfirm 
 }
 
