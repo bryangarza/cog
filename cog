@@ -31,12 +31,10 @@ fi
 
 if [[ $1 == '-f' || $1 == '--force' ]]; then
     coweropts='--force'
-fi
-
-shift
-
-if [[ $1 == '-u' || $1 == '--update' ]]; then
+    shift
+elif [[ $1 == '-u' || $1 == '--update' ]]; then
     update
+    shift
 fi
 
 vars() {
